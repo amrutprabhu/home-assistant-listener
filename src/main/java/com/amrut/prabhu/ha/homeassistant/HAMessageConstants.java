@@ -1,4 +1,4 @@
-package com.amrut.prabhu.HomeAssistant;
+package com.amrut.prabhu.ha.homeassistant;
 
 import org.springframework.stereotype.Component;
 

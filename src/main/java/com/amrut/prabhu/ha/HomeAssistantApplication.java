@@ -1,5 +1,6 @@
-package com.amrut.prabhu.HomeAssistant;
+package com.amrut.prabhu.ha;
 
+import com.amrut.prabhu.ha.homeassistant.SocketHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

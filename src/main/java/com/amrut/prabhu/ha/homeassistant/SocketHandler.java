@@ -1,4 +1,4 @@
-package com.amrut.prabhu.HomeAssistant;
+package com.amrut.prabhu.ha.homeassistant;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,12 +6,14 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 
-import static com.amrut.prabhu.HomeAssistant.HAMessageConstants.AUTH_MESSSAGE;
-import static com.amrut.prabhu.HomeAssistant.HAMessageConstants.SUBSCRIBE_MESSAGE;
+import static com.amrut.prabhu.ha.homeassistant.HAMessageConstants.AUTH_MESSSAGE;
+import static com.amrut.prabhu.ha.homeassistant.HAMessageConstants.SUBSCRIBE_MESSAGE;
 import static java.lang.String.format;
 
 @Component
@@ -20,6 +22,8 @@ public class SocketHandler implements WebSocketHandler {
     static final Logger logger = LoggerFactory.getLogger(SocketHandler.class);
     private ObjectMapper objectMapper;
 
+    @Autowired
+    SimpMessagingTemplate simpMessagingTemplate;
     @Value("${homeassistant.token}")
     private String token;
 
@@ -58,6 +62,8 @@ public class SocketHandler implements WebSocketHandler {
             case event: {
                 try {
                     logger.info(json.read("$.event.data.entity_id").toString());
+
+                    simpMessagingTemplate.convertAndSend("/all",message.getPayload());
                 } catch (Exception e) {
                     logger.error(e.getMessage());
                     logger.error("Event Body: " + json.jsonString());
