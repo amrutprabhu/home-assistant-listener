@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  ui:
+    image: ghcr.io/amrutprabhu/ha-ui:latest
+    build: 
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    network_mode: "host"
+    # volumes:
+      # - ./config/.env.local:/app/.env.production
+    environment:
+      - WEBSOCKET_URL=http://192.168.0.70:8080/ws
+    
+
