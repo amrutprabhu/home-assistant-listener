@@ -1,0 +1,7 @@
+
+homeassistant:
+    token: ${token}
+
+#logging:
+#    level:
+#        ROOT: DEBUG
