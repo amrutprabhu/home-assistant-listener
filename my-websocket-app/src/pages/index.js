@@ -1,65 +1,57 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import _ from "lodash";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
+import Layout from "@/components/layout";
+import { connectToStompClient } from "@/utils/client";
 
-var socket;
+let stompClient;
+
 export async function getServerSideProps(context) {
-  const WEBSOCKET_URL_1 = process.env.WEBSOCKET_URL;
+  const WEBSOCKET_URL = process.env.WEBSOCKET_URL;
   return {
     props: {
-      WEBSOCKET_URL_1,
+      WEBSOCKET_URL,
     },
   };
 }
-export default function Home({ WEBSOCKET_URL_1 }) {
+export default function Home({ WEBSOCKET_URL }) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    if (socket === undefined) {
-      console.log("here" + WEBSOCKET_URL_1);
-      socket = new SockJS(WEBSOCKET_URL_1);
-      const stompClient = Stomp.over(socket);
-      stompClient.connect(
-        {},
-        function (frame) {
-          console.log("-----------------------------------");
-          console.log("STOMP client connected");
-          console.log("-----------------------------------");
-          stompClient.subscribe("/all", function (message) {
-            const data = JSON.parse(message.body);
-            console.info("received ->" + JSON.stringify(data));
-            setEvents((prevEvents) => [...prevEvents, data]);
-          });
-        },
-        function (error) {
-          console.error("WebSocket error:", error);
-        }
-      );
-
-      return () => {
-        if (stompClient.connected) {
-          console.info("-----" + stompClient);
-          stompClient.disconnect();
-        }
+    if (!stompClient) {
+      const subscriptionHandler = (json) => {
+        console.info("received ->" + JSON.stringify(json));
+        setEvents((prevEvents) => [...prevEvents, json]);
       };
-    }
-  }, [WEBSOCKET_URL_1]);
-  return (
-    <div className="min-h-screen py-6 flex flex-col justify-center sm:py-12 bg-gray-700">
-      <Head>
-        <title>WebSocket</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
-      <main className="mt-2">
-        <div className="px-6 lg:px-8 ">
-          <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-400 sm:text-4xl">
-              WebSocket
-            </h2>
-          </div>
+      stompClient = connectToStompClient(
+        subscriptionHandler,
+        "/all",
+        WEBSOCKET_URL
+      );
+    }
+
+    return () => {
+      if (stompClient && stompClient.connected) {
+        console.log("Disconnecting Client");
+        stompClient.disconnect();
+        stompClient = undefined;
+      }
+    };
+  }, [WEBSOCKET_URL]);
+  return (
+    <Layout>
+      <div className="flex flex-col justify-center h-full mx-auto bg-gray-700">
+        <Head>
+          <title>Amr</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
+        <div className="text-center w-auto">
+          <h2 className="text-3xl font-extrabold sm:text-4xl">WebSocket 1</h2>
+        </div>
+        {/* <main className="mt-2"> */}
+        <div className="px-6 lg:px-8 w-full">
           <div className="mt-12">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 ">
               {_.map(events, (event, index) => (
@@ -80,15 +72,8 @@ export default function Home({ WEBSOCKET_URL_1 }) {
             </div>
           </div>
         </div>
-      </main>
-
-      <footer className="mt-auto bg-gray-200">
-        <div className="max-w-3xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-base font-medium text-gray-600">
-            &copy; 2023 RefactorFirst. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </div>
+        {/* </main> */}
+      </div>
+    </Layout>
   );
 }
