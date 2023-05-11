@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build-image": "docker build . -t ha-ui"
+    "build-image": "docker build . -t ghcr.io/amrutprabhu/ha-ui"
   },
   "dependencies": {
     "autoprefixer": "10.4.14",

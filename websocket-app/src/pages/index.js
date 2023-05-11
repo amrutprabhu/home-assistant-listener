@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import _ from "lodash";
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout";
 import { connectToStompClient } from "@/utils/client";
 
 let stompClient;
