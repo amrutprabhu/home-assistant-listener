@@ -11,8 +11,6 @@ COPY package*.json ./
 RUN npm install --production
 
 # Copy the rest of the files to the working directory
-# COPY public ./public
-# COPY src ./src
 # COPY next.config.js next.config.js
 # COPY tailwind.config.js tailwind.config.js
 COPY . .
