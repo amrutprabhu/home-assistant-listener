@@ -29,7 +29,7 @@ jobs:
 
       #Build Image
       - name: Build Image
-        run: ./mvnw clean spring-boot:build-image -Pnative -DskipTests -Dproject.version=$GITHUB_REF_NAME
+        run: ./mvnw clean spring-boot:build-image -DskipTests
         working-directory: Home-Assistant
 
       #Deploy the image to the Docker registry
