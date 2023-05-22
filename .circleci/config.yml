@@ -16,16 +16,18 @@ jobs:
       - sdkman/sdkman-install:
           candidate: java
           version: 22.3.r17-grl
-      - run:
-          name: "bootBuildImage"
-          command: "./mvnw clean spring-boot:build-image -Pnative -DskipTests"
-          working_directory: Home-Assistant
       - docker/check:
           registry: ghcr.io
-          docker-username: amrutprabhu
+          docker-username: DOCKER_USERNAME
           docker-password: DOCKER_PASS
+      - run:
+          name: "bootBuildImage"
+          command: "./mvnw clean spring-boot:build-image -DskipTests"
+          working_directory: Home-Assistant
+
       - docker/push:
-          image: ghcr.io/amrutprabhu/home-assistant
+          image: amrutprabhu/home-assistant-listener
+          registry: ghcr.io
           tag: $CIRCLE_TAG-aarch_64
 
 workflows:
