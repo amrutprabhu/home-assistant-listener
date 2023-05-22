@@ -29,7 +29,7 @@ jobs:
 
       #Build Image
       - name: Build Image
-        run: ./mvnw clean spring-boot:build-image -Pnative -DskipTests
+        run: ./mvnw clean spring-boot:build-image -Pnative -DskipTests -Dproject.version=$GITHUB_REF_NAME
         working-directory: Home-Assistant
 #      #Login to DockerHub
 #      - name: Login to DockerHub
