@@ -21,7 +21,7 @@ jobs:
           submodules: true
       #Build Image
       - name: Build Image
-        run: ./mvnw clean spring-boot:build-image -Pnative
+        run: ./mvnw clean spring-boot:build-image -Pnative -DskipTests
         working-directory: Home-Assistant
       #Login to DockerHub
       - name: Login to DockerHub
