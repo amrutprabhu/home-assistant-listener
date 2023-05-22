@@ -50,6 +50,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
+                        <name>ghcr.io/amrutprabhu/home-assistant:${project.version}-${os.detected.arch}</name>
                         <builder>dashaun/builder:tiny</builder>
                     </image>
                 </configuration>
