@@ -21,11 +21,11 @@ jobs:
           command: "./mvnw clean spring-boot:build-image -Pnative -DskipTests"
           working_directory: Home-Assistant
       - docker/check:
-
+          registry: ghcr.io
           docker-username: amrutprabhu
           docker-password: DOCKER_PASS
       - docker/push:
-          image: dashaun/dev.dashaun.service.gateway
+          image: ghcr.io/amrutprabhu/home-assistant
           tag: $CIRCLE_TAG-aarch_64
 
 workflows:
@@ -33,7 +33,7 @@ workflows:
     jobs:
       - arm64-native:
           context:
-            - dashaun-dockerhub
+            - context
           filters:
             tags:
               only: /^v.*/
