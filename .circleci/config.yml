@@ -21,8 +21,7 @@ jobs:
           docker-username: DOCKER_USERNAME
           docker-password: DOCKER_PASS
       - docker/pull:
-          image: ghcr.io/amrutprabhu/home-assistant
-          tag: v0.0.3-x86_64
+          images: "ghcr.io/amrutprabhu/home-assistant:v0.0.3-x86_64"
 #      - run:
 #          name: "bootBuildImage"
 #          command: "./mvnw clean spring-boot:build-image -Pnative -DskipTests -Dproject.version=$CIRCLE_TAG"
