@@ -21,7 +21,6 @@ public class SocketHandler implements WebSocketHandler {
 
     static final Logger logger = LoggerFactory.getLogger(SocketHandler.class);
     private ObjectMapper objectMapper;
-
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
     @Value("${homeassistant.token}")
@@ -63,7 +62,7 @@ public class SocketHandler implements WebSocketHandler {
                 try {
                     logger.info(json.read("$.event.data.entity_id").toString());
 
-                    simpMessagingTemplate.convertAndSend("/all",message.getPayload());
+                    simpMessagingTemplate.convertAndSend("/all", message.getPayload());
                 } catch (Exception e) {
                     logger.error(e.getMessage());
                     logger.error("Event Body: " + json.jsonString());
