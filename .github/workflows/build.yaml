@@ -22,6 +22,7 @@ jobs:
       #Build Image
       - name: Build Image
         run: ./mvnw clean spring-boot:build-image -Pnative
+        working-directory: Home-Assistant
       #Login to DockerHub
       - name: Login to DockerHub
         uses: docker/login-action@v2
