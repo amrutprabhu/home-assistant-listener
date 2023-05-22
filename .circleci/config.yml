@@ -20,10 +20,13 @@ jobs:
           registry: ghcr.io
           docker-username: DOCKER_USERNAME
           docker-password: DOCKER_PASS
-      - run:
-          name: "bootBuildImage"
-          command: "./mvnw clean spring-boot:build-image -Pnative -DskipTests -Dproject.version=$CIRCLE_TAG"
-          working_directory: Home-Assistant
+      - docker/pull:
+          image: ghcr.io/amrutprabhu/home-assistant
+          tag: v0.0.3-x86_64
+#      - run:
+#          name: "bootBuildImage"
+#          command: "./mvnw clean spring-boot:build-image -Pnative -DskipTests -Dproject.version=$CIRCLE_TAG"
+#          working_directory: Home-Assistant
 
       - docker/push:
           image: ghcr.io/amrutprabhu/home-assistant
@@ -37,6 +40,6 @@ workflows:
             - context
           filters:
             tags:
-              only: /^v.*/
+              only: /^t.*/
             branches:
               ignore: /.*/

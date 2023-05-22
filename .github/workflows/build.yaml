@@ -28,15 +28,9 @@ jobs:
           password: ${{ secrets.TOKEN_SECRET }}
 
       #Build Image
-      - name: Build Image
-        run: ./mvnw clean spring-boot:build-image -Pnative -DskipTests -Dproject.version=$GITHUB_REF_NAME
-        working-directory: Home-Assistant
-#      #Login to DockerHub
-#      - name: Login to DockerHub
-#        uses: docker/login-action@v2
-#        with:
-#          username: amrutprabhu
-#          password: ${{ secrets.TOKEN_SECRET }}
+#      - name: Build Image
+#        run: ./mvnw clean spring-boot:build-image -Pnative -DskipTests -Dproject.version=$GITHUB_REF_NAME
+#        working-directory: Home-Assistant
       #Tag the version
       #Deploy the image to the Docker registry
       - name: Push Images to Docker Registry
