@@ -29,7 +29,7 @@ jobs:
 
       - docker/push:
           image: ghcr.io/amrutprabhu/home-assistant
-          tag: $CIRCLE_TAG-aarch_64
+          tag: v0.0.3-x86_64
 
 workflows:
   arm64-native-workflow:
