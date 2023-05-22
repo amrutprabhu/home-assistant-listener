@@ -28,7 +28,8 @@ jobs:
 #          working_directory: Home-Assistant
 
       - docker/push:
-          image: ghcr.io/amrutprabhu/home-assistant
+          image: amrutprabhu/home-assistant
+          registry: ghcr.io
           tag: v0.0.3-x86_64
 
 workflows:
