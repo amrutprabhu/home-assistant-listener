@@ -20,7 +20,7 @@ jobs:
         with:
           submodules: true
 
-      - name: Login to DockerHub
+      - name: Login to Github CR
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
@@ -28,10 +28,10 @@ jobs:
           password: ${{ secrets.TOKEN_SECRET }}
 
       #Build Image
-#      - name: Build Image
-#        run: ./mvnw clean spring-boot:build-image -Pnative -DskipTests -Dproject.version=$GITHUB_REF_NAME
-#        working-directory: Home-Assistant
-      #Tag the version
+      - name: Build Image
+        run: ./mvnw clean spring-boot:build-image -Pnative -DskipTests -Dproject.version=$GITHUB_REF_NAME
+        working-directory: Home-Assistant
+
       #Deploy the image to the Docker registry
       - name: Push Images to Docker Registry
         run: docker push -a ghcr.io/amrutprabhu/home-assistant
@@ -41,7 +41,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Login to DockerHub
+      - name: Login to GitHub CR
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
