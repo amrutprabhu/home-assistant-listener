@@ -37,6 +37,6 @@ workflows:
             - context
           filters:
             tags:
-              only: /^vtest.*/
+              only: /^v.*/
             branches:
               ignore: /.*/
