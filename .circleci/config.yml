@@ -26,7 +26,7 @@ jobs:
           working_directory: Home-Assistant
 
       - docker/push:
-          image: amrutprabhu/home-assistant
+          image: amrutprabhu/home-assistant-listener
           registry: ghcr.io
           tag: $CIRCLE_TAG-aarch_64
 

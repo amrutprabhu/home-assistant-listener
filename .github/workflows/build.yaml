@@ -34,7 +34,7 @@ jobs:
 
       #Deploy the image to the Docker registry
       - name: Push Images to Docker Registry
-        run: docker push -a ghcr.io/amrutprabhu/home-assistant
+        run: docker push -a ghcr.io/amrutprabhu/home-assistant-listener
 
 
   manifest:
@@ -53,10 +53,10 @@ jobs:
           timeout_minutes: 5
           retry_wait_seconds: 60
           max_attempts: 6
-          command: docker pull ghcr.io/amrutprabhu/home-assistant:$GITHUB_REF_NAME-aarch_64
+          command: docker pull ghcr.io/amrutprabhu/home-assistant-listener:$GITHUB_REF_NAME-aarch_64
       - name: create-manifest
         run: |
-          docker manifest create ghcr.io/amrutprabhu/home-assistant:$GITHUB_REF_NAME --amend ghcr.io/amrutprabhu/home-assistant:$GITHUB_REF_NAME-x86_64 --amend ghcr.io/amrutprabhu/home-assistant:$GITHUB_REF_NAME-aarch_64
-          docker manifest push ghcr.io/amrutprabhu/home-assistant:$GITHUB_REF_NAME
+          docker manifest create ghcr.io/amrutprabhu/home-assistant-listener:$GITHUB_REF_NAME --amend ghcr.io/amrutprabhu/home-assistant-listener:$GITHUB_REF_NAME-x86_64 --amend ghcr.io/amrutprabhu/home-assistant-listener:$GITHUB_REF_NAME-aarch_64
+          docker manifest push ghcr.io/amrutprabhu/home-assistant-listener:$GITHUB_REF_NAME
 #          docker manifest create ghcr.io/amrutprabhu/home-assistant:latest --amend ghcr.io/amrutprabhu/home-assistant:$GITHUB_REF_NAME-x86_64 --amend ghcr.io/amrutprabhu/home-assistant:$GITHUB_REF_NAME-aarch_64
 #          docker manifest push ghcr.io/amrutprabhu/home-assistant:latest
