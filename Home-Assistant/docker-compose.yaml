@@ -1,8 +1,10 @@
+
 services:
   ha-listener:
-    image: home-assistant:0.0.1-SNAPSHOT
+    image: ghcr.io/amrutprabhu/home-assistant-listener:v0.0.0-dirty-aarch_64
+    restart: always
     ports:
       - 8080:8080
     environment:
-      - token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIyZGIyM2Y0YWNiOWU0NDJjODFkNDRlODJkNjRjZGQ0OSIsImlhdCI6MTY4Mjg4ODM4MywiZXhwIjoxOTk4MjQ4MzgzfQ.L4yzRVWRHzYegfqcv8yJAKD76sJlAdjBBANPVsERlPI
+      - token=
       - url=ws://192.168.0.158:8123/api/websocket
