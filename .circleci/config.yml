@@ -22,7 +22,7 @@ jobs:
           docker-password: DOCKER_PASS
       - run:
           name: "bootBuildImage"
-          command: "./mvnw clean spring-boot:build-image -DskipTests"
+          command: "./mvnw clean spring-boot:build-image -Pnative -DskipTests"
           working_directory: Home-Assistant
 
       - docker/push:
